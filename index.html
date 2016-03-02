@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+  <head lang="de">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>dajantos Typing Challenge</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+   
+ <script type="text/javascript">
+    
+    var _wordsAllArray = new Array();
+ 	var _wordAsString = new String();
+    
+    var _counter = 61;
+    var _t;
+    var _isTimerOn = false;
+    var _rightWords = [];
+	var _wrongWords = [];
+	var _rightKeystrokes = 0;
+   	var _wrongKeystrokes = 0;
+
+ 	function fillWordArrayWithWords() {
+ 		_wordsAllArray.push("allein");
+		_wordsAllArray.push("alles");
+		_wordsAllArray.push("also");
+		_wordsAllArray.push("am");
+		_wordsAllArray.push("auch");
+		_wordsAllArray.push("auf");
+		_wordsAllArray.push("aus");
+		_wordsAllArray.push("bald");
+		_wordsAllArray.push("bald");
+		_wordsAllArray.push("dann");
+		_wordsAllArray.push("darauf");
+		_wordsAllArray.push("dass");
+		_wordsAllArray.push("dem");
+		_wordsAllArray.push("den");
+		_wordsAllArray.push("denn");
+		_wordsAllArray.push("deren");
+		_wordsAllArray.push("die");
+		_wordsAllArray.push("diese");
+		_wordsAllArray.push("dieser");
+		_wordsAllArray.push("doch");
+		_wordsAllArray.push("doch");
+		_wordsAllArray.push("einem");
+		_wordsAllArray.push("eines");
+		_wordsAllArray.push("einen");
+		_wordsAllArray.push("einmal");
+		_wordsAllArray.push("einer");
+		_wordsAllArray.push("er");
+		_wordsAllArray.push("sie");
+		_wordsAllArray.push("es");
+		_wordsAllArray.push("wir");
+		_wordsAllArray.push("ihr");
+		_wordsAllArray.push("sie");
+		_wordsAllArray.push("ganz");
+		_wordsAllArray.push("ganze");
+		_wordsAllArray.push("gar");
+		_wordsAllArray.push("gut");
+		_wordsAllArray.push("Hand");
+		_wordsAllArray.push("gemacht");
+		_wordsAllArray.push("hätte");
+		_wordsAllArray.push("hätten");
+		_wordsAllArray.push("trotzdem");
+		_wordsAllArray.push("hätte");
+		_wordsAllArray.push("hier");
+		_wordsAllArray.push("ihn");
+		_wordsAllArray.push("ihr");
+		_wordsAllArray.push("ihrem");
+		_wordsAllArray.push("im");
+		_wordsAllArray.push("ist");
+		_wordsAllArray.push("ja");
+		_wordsAllArray.push("nein");
+		_wordsAllArray.push("Jahre");
+		_wordsAllArray.push("jetzt");
+		_wordsAllArray.push("keine");
+		_wordsAllArray.push("können");
+		_wordsAllArray.push("lange");
+		_wordsAllArray.push("lassen");
+		_wordsAllArray.push("Leben");
+		_wordsAllArray.push("Liebe");
+		_wordsAllArray.push("mehr");
+		_wordsAllArray.push("meiner");
+		_wordsAllArray.push("Menschen");
+		_wordsAllArray.push("nur");
+		_wordsAllArray.push("oder");
+		_wordsAllArray.push("recht");
+		_wordsAllArray.push("schon");
+		_wordsAllArray.push("sehen");
+		_wordsAllArray.push("sehr");
+		_wordsAllArray.push("sein");
+		_wordsAllArray.push("seiner");
+		_wordsAllArray.push("sind");
+		_wordsAllArray.push("sollte");
+		_wordsAllArray.push("um");
+		_wordsAllArray.push("vielleicht");
+		_wordsAllArray.push("vom");
+		_wordsAllArray.push("waren");
+		_wordsAllArray.push("weiter");
+		_wordsAllArray.push("welche");
+		_wordsAllArray.push("welcher");
+		_wordsAllArray.push("welches");
+		_wordsAllArray.push("werde");
+		_wordsAllArray.push("werden");
+		_wordsAllArray.push("worden");
+		_wordsAllArray.push("wohl");
+		_wordsAllArray.push("zwar");
+		_wordsAllArray.push("zwischen");
+		_wordsAllArray.push("hatte");
+		_wordsAllArray.push("war");
+		_wordsAllArray.push("ersten");
+		_wordsAllArray.push("Herr");
+		_wordsAllArray.push("Welt");
+		_wordsAllArray.push("damit");
+		_wordsAllArray.push("sagen");
+		_wordsAllArray.push("Herr");
+		_wordsAllArray.push("unter");
+		_wordsAllArray.push("diesen");
+		_wordsAllArray.push("dieses");
+		_wordsAllArray.push("heute");
+		_wordsAllArray.push("gegeben");
+		_wordsAllArray.push("Seite");
+		_wordsAllArray.push("Weise");
+		_wordsAllArray.push("gewesen");
+		_wordsAllArray.push("einzelnen");
+		_wordsAllArray.push("nun");
+		_wordsAllArray.push("ihm");
+		_wordsAllArray.push("mir");
+		_wordsAllArray.push("kommen");
+		_wordsAllArray.push("während");
+		_wordsAllArray.push("seinen");
+		_wordsAllArray.push("seinem");
+		_wordsAllArray.push("deinen");
+		_wordsAllArray.push("schlecht");
+
+    }
+
+    function countdown() {
+		
+		_counter--;
+		_t = setTimeout("countdown()", 1000);
+		getTimerTextfield().value = _counter;
+
+		if(_counter == 0) {
+			isTimerOn = false;
+  			clearTimeout(_t);
+  			getTypingTextfield().disabled=true;
+  			getTypingTextfield().value = ""
+
+  			calculateScores();
+		}
+	}
+
+	function startCountdown() {
+		if(!_isTimerOn) {
+			_isTimerOn = true;
+			countdown();
+		}
+	}
+
+	function calculateScores() {
+
+		var WPM = _rightWords.length;
+		var rightWords = _rightWords.length;
+		var wrongWords = _wrongWords.length;
+		var rightKeystrokes = _rightKeystrokes;
+		var wrongKeystrokes = _wrongKeystrokes;
+		var officialWPM = Math.floor(rightKeystrokes/5);
+
+		// Calculation of average word length
+		// var avgWordLength = 0;
+		// for (var i = 0; i < _wordsAllArray.length; i++) {
+		// 	avgWordLength += _wordsAllArray[i].length;
+		// }
+		// avgWordLength = avgWordLength / _wordsAllArray.length;
+		// alert(avgWordLength);
+
+		getTimerTextfield().style.height="150px";
+		getTimerTextfield().style.width="300px";
+
+		getTimerTextfield().value = "*** S C O R E ***" + "\n"
+			+ "Right words: " + rightWords + " (" + rightKeystrokes + " keystrokes)" + "\n"
+			+ "Wrong words: " + wrongWords + " (" + wrongKeystrokes + " keystrokes)" + "\n"
+			+ "Actual WPM: " + WPM + " (" + (rightKeystrokes+wrongKeystrokes) + " keystrokes)" + "\n"
+			+ "Offical WPM*: " + officialWPM + " (" + (rightKeystrokes+wrongKeystrokes) + " keystrokes)" + "\n" + "\n"
+			+ "*Keystrokes / 5 (Average word length)";
+	}
+
+	function cleanUpFrontend() {
+		document.getElementById("typingTextfield").value = "";
+		document.getElementById("problemTextfield").value = "";
+	}
+
+    function cleanUpBackend() {
+    	_wordAsString = "";
+    	_wordsAllArray = [];
+    }
+
+ 	function randomizeAllWordsArray() {
+ 		
+ 		for (var i = _wordsAllArray.length - 1; i >= 0; i--) {
+ 			var j = Math.floor(Math.random() * (_wordsAllArray.length - 1 - 0)) + 0;
+ 			_wordsAllArray[i] = _wordsAllArray[j];
+ 			_wordsAllArray[j] = _wordsAllArray[i];
+ 		}
+
+    }
+
+    function shuffle(array) {
+    
+    var j, x, i;
+    
+    for (i = array.length; i; i -= 1) {
+        j = Math.floor(Math.random() * i);
+        x = array[i - 1];
+        array[i - 1] = array[j];
+        array[j] = x;
+    }
+}
+
+    function generateProblem() {
+    	cleanUpBackend();
+ 		fillWordArrayWithWords();
+    	
+ 		shuffle(_wordsAllArray);
+ 		// randomizeAllWordsArray();
+ 
+ 		for (var i = 0 ; i < _wordsAllArray.length; i++) {
+    	_wordAsString = _wordAsString + _wordsAllArray[i] + " ";
+    	}
+
+    	_wordAsString += _wordAsString;
+    	_wordAsString += _wordAsString;
+
+    	_wordAsString.trim();
+ 	}
+
+ 	function displayProblem() {
+ 		cleanUpFrontend();
+ 		document.getElementById("problemTextfield").value = _wordAsString;
+ 	}
+
+ 	function getTypingTextfield() {
+ 		return document.getElementById("typingTextfield");
+ 	}
+
+ 	function getProblemTextfield() {
+ 		return document.getElementById("problemTextfield");
+ 	}
+
+ 	function getBody() {
+ 		return document.getElementsByTagName("BODY")[0];
+ 	}
+
+ 	function getWordsArraySize() {
+ 		return _wordsAllArray.length;
+ 	}
+
+ 	function getTimerTextfield() {
+ 		return document.getElementById("timerTextfield");
+ 	}
+
+ 	function getRefreshWordsButton() {
+ 		return document.getElementById("refreshButton");
+ 	}
+
+   </script>
+  </head>
+  <body onLoad="getRefreshWordsButton().click();" background="forest.jpg"> 	
+
+
+  	<center><font size="6" color="white">typing challenge by dajanto</font></center>
+
+	<div class="section group" align="center">
+	<div class="col span_1_of_3" align="center">
+	
+	<textarea style="resize:none; overflow: hidden; width: 300px; height: 48px;" class="form-control" readonly wrap="soft" rows="2" cols="2" id="problemTextfield"></textarea>
+
+	</div>
+	
+	<textarea style="resize:none; overflow: hidden; width: 45px; height: 30px;" class="form-control" readonly rows="2" cols="2" id="timerTextfield"></textarea>
+
+	
+
+
+	<div class="col span_1_of_3" align="center">
+	<textarea autofocus style="resize:none; overflow: hidden; width: 300px; height: 30px;" class="form-control" id="typingTextfield" rows="1" cols="2" placeholder="Start typing to begin a challenge."></textarea>
+	<script> {
+
+		getTypingTextfield().addEventListener("keypress", function checkKeyPress(e) {
+    		
+    		if(getProblemTextfield().value !== "") {
+    			startCountdown();
+    			getTypingTextfield().placeholder="";
+    		}
+
+			var array = _wordAsString.trim().split(" "); 
+			var firstWordOfString = array[0];
+
+    			if (e.keyCode == 32) {
+    				e.preventDefault();
+    				
+    				if(getTypingTextfield().value !== "") {
+    					
+    					if(firstWordOfString === getTypingTextfield().value) {
+     						_rightWords.push(firstWordOfString);
+     						_rightKeystrokes += firstWordOfString.length;
+     					} 
+     					else if(firstWordOfString !== getTypingTextfield().value) {
+     						_wrongWords.push(firstWordOfString);
+     						_wrongKeystrokes += firstWordOfString.length;
+     					}
+    				}
+    				
+					getTypingTextfield().value = "";
+
+					_wordAsString = _wordAsString.substring(firstWordOfString.length + 1,_wordAsString.length);
+     				getProblemTextfield().value = _wordAsString; 
+     				
+    				getBody().style.backgroundColor = "white";
+				}
+				});
+
+		getTypingTextfield().addEventListener("keyup", function checkKeyUp(e) {
+			
+			var array = _wordAsString.trim().split(" "); 
+			var firstWordOfString = array[0];
+
+			if(getTypingTextfield().value === firstWordOfString.substring(0,getTypingTextfield().value.length)) {
+					
+					// _wordAsString = firstWordOfString.substring(0,getTypingTextfield().value.length).fontcolor("green") + _wordAsString.substring(getTypingTextfield().value.length,_wordAsString.length);
+					
+					getProblemTextfield().style.backgroundColor = "#d5ffd5";
+				}
+				else {
+
+					// _wordAsString = firstWordOfString.substring(0,getTypingTextfield().value.length).fontcolor("red") + _wordAsString.substring(getTypingTextfield().value.length,_wordAsString.length);
+
+
+					getProblemTextfield().style.backgroundColor = "#ffdddd";
+				}
+
+				// getProblemTextfield().value = _wordAsString; 
+		});
+		}
+
+	</script>
+	</div>
+
+	<div class="col span_1_of_3" align="center">
+  	<button name="Refresh button" id="refreshButton" type="button" class="btn btn-primary" onclick="gettingReadyToPlay()">Refresh words</button>
+  	<script>
+  	function gettingReadyToPlay() {
+		
+  		getBody().style.backgroundRepeat = "repeat";
+
+
+		getTypingTextfield().disabled= false;
+  		_counter = 61;
+		_isTimerOn = false;
+  		clearTimeout(_t);
+  		getTimerTextfield().value = "";
+  		getTypingTextfield().placeholder="Start typing to begin a challenge.";
+
+  		getTimerTextfield().style.textAlign="center";
+  		getTypingTextfield().style.textAlign="center";
+  		getTimerTextfield().style.height="30px";
+  		getTimerTextfield().style.width="45px";
+
+  		_rightWords = [];
+  		_wrongWords = [];
+  		_rightKeystrokes = 0;
+  		_wrongKeystrokes = 0;
+
+		problemTextfield.style.backgroundColor="white";
+  		
+  		cleanUpFrontend();
+  		generateProblem();
+  		displayProblem();
+  	}
+
+  	</script>
+  </body>
+</html>
