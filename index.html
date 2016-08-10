@@ -5,14 +5,16 @@
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link href="cssOutsourcing.css" type="text/css" rel="stylesheet">
 	</head>
-
-	<body background="forest.jpg">
-		<div align="center">
-			<font size="6" color="white">typing challenge by dajanto</font>
-			<textarea class="problemTextfieldStyle form-control" id="problemTextfield"></textarea>
-			<textarea style="resize:none; overflow: hidden; width: 45px; height: 30px;" class="form-control" readonly rows="2" cols="2" id="timerTextfield"></textarea>
-			<textarea autofocus style="resize:none; overflow: hidden; width: 300px; height: 30px;" class="form-control" id="typingTextfield" rows="1" cols="2" placeholder="Start typing to begin a challenge."></textarea>
-			<button name="Refresh button" id="refreshButton" type="button" class="btn btn-primary" onclick="gettingReadyToPlay()">Refresh words</button>
+	<body background="forest.jpg">		
+		<div id="header">
+			<p>typing challenge by dajanto</p>
+		</div>
+		<div id="problemTextfield" class="form-control"></div>
+		<div id="timerTextfield" class="form-control"></div>
+		<div id="typingTextfield" contenteditable class="form-control"></div>
+		<div id="refreshButton">
+			<button type="button" class="btn btn-primary" onclick="gettingReadyToPlay()">Refresh words</button>
+		</div>
 	</body>
 	<script language="javascript" type="text/javascript" src="jsOutsourcing.js"></script> 
 </html>

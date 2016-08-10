@@ -1,0 +1,41 @@
+
+#header {
+	color: white;
+	text-align: center;
+	font-size: 2em;
+}
+
+.highlightRight {
+	background-color: #ccff99;
+}
+
+.highlightWrong {
+	background-color: #f05c79;
+}
+
+#problemTextfield {
+	
+	width: 50%;
+	height: 50%;
+	margin: auto;
+	text-align: justify;
+}
+
+#timerTextfield {
+	
+	margin: auto;
+	text-align: center;
+}
+
+#typingTextfield {
+	width: 50%;
+	height: 50%;
+	margin: auto;
+}
+
+#refreshButton {
+	text-align:center;
+	margin: auto;
+}
+	
+
