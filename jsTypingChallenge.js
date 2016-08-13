@@ -179,7 +179,7 @@
  		return document.getElementById("refreshButton");
  	}
 
-   	// Highlight words
+   	// Highlight words (not used atm)
 	function highlightElement(element, start, end) { 
 
 		var str = element.innerHTML;
@@ -196,7 +196,7 @@
 	}
 
 	// This happens if a keyboard key has been pressed.
-	getTypingTextfield().addEventListener("keydown", function checkKeyPress(e) {
+	getTypingTextfield().addEventListener("keypress", function checkKeyPress(e) {
 		
 		if(getProblemTextfield().innerHTML !== "") {
 			startCountdown();
@@ -214,11 +214,13 @@
 					if(getTypingTextfield().innerHTML === currentWordOfString) {
  						_rightWords.push(currentWordOfString);
  						_rightKeystrokes += currentWordOfString.length;
+ 						
  						replaceInElement(getProblemTextfield(), currentWordOfString, '<span class="highlightRight">' + currentWordOfString + '</span>');
  					} 
  					else if(getTypingTextfield().innerHTML !== currentWordOfString) {
  						_wrongWords.push(currentWordOfString);
  						_wrongKeystrokes += currentWordOfString.length;
+ 						
  						replaceInElement(getProblemTextfield(), currentWordOfString, '<span class="highlightWrong">' + currentWordOfString + '</span>');
  					}
 				}
@@ -233,8 +235,7 @@
   		It's mostly about cleaning up stuff that another challenge can be launched. 
   	*/
   	function gettingReadyToPlay() {
-		document.body.style.zoom = "200%";
-  		getBody().style.backgroundRepeat = "repeat";
+		
 		getTypingTextfield().setAttribute("contentEditable", true); 
   		_counter = 61;
 		_isTimerOn = false;

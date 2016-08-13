@@ -1,6 +1,7 @@
 body {
 
 	background: url("forest.jpg")
+	/* zoom:2; doesn't work atm */
 }
 
 #header {
@@ -38,7 +39,7 @@ body {
 }
 
 #refreshButton {
-	text-align:center;
+	text-align: center;
 	margin: auto;
 }
 	
