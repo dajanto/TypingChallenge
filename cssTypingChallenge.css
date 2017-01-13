@@ -10,6 +10,10 @@ body {
 	font-size: 2em;
 }
 
+.highlightActive {
+	background-color: lightgrey;
+}
+
 .highlightRight {
 	background-color: #ccff99;
 }

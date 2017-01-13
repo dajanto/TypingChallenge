@@ -13,12 +13,12 @@
 	var _wrongWords = [];
 	var _rightKeystrokes = 0;
    	var _wrongKeystrokes = 0;
-   	var _spaceCount = 0;
 
    	/*
    		Fills the Word Array with all words that are involved to the challenge.
    	*/
  	function fillWordArrayWithWords() {
+
  		_wordsAllArray = ["allein","alles","also","am","auch",
 							"auf","aus","bald","dann","darauf",
 							"dass","dem","den","denn","deren",
@@ -77,13 +77,13 @@
 	*/
 	function calculateScores() {
 
-		var WPM = _rightWords.length;
 		var rightWords = _rightWords.length;
 		var wrongWords = _wrongWords.length;
 		var rightKeystrokes = _rightKeystrokes;
 		var wrongKeystrokes = _wrongKeystrokes;
 		var officialWPM = Math.floor(rightKeystrokes/5);
 
+		// No CSS used
 		getTimerTextfield().style.height="150px";
 		getTimerTextfield().style.width="300px";
 
@@ -179,22 +179,6 @@
  		return document.getElementById("refreshButton");
  	}
 
-   	// Highlight words (not used atm)
-	function highlightElement(element, start, end) { 
-
-		var str = element.innerHTML;
-		str = str.substr(0, start) + '<span class="highlight">' + str.substr(start, end - start + 1) + '</span>' + str.substr(end + 1);
-		
-		element.innerHTML = str;
-	}
-
-	// Replaces one thing with another in one elements innerHTML 
-	function replaceInElement(element, toReplace, replacement) {
-		var str = element.innerHTML;
-		str = str.replace(toReplace, replacement);
-		element.innerHTML = str;
-	}
-
 	// This happens if a keyboard key has been pressed.
 	getTypingTextfield().addEventListener("keypress", function checkKeyPress(e) {
 		
@@ -205,29 +189,30 @@
 
 		var currentWordOfString = _wordsAllArray[_rightWords.length + _wrongWords.length];
 
-			var SPACE = 32;
+		var SPACE = 32;
 
-			if (e.keyCode == SPACE) {
-				e.preventDefault();
-				
-				if(getTypingTextfield().innerHTML !== "") {
-					if(getTypingTextfield().innerHTML === currentWordOfString) {
- 						_rightWords.push(currentWordOfString);
- 						_rightKeystrokes += currentWordOfString.length;
- 						
- 						replaceInElement(getProblemTextfield(), currentWordOfString, '<span class="highlightRight">' + currentWordOfString + '</span>');
- 					} 
- 					else if(getTypingTextfield().innerHTML !== currentWordOfString) {
- 						_wrongWords.push(currentWordOfString);
- 						_wrongKeystrokes += currentWordOfString.length;
- 						
- 						replaceInElement(getProblemTextfield(), currentWordOfString, '<span class="highlightWrong">' + currentWordOfString + '</span>');
- 					}
-				}
-				getTypingTextfield().innerHTML = "";
+		if (e.keyCode == SPACE) {
+			e.preventDefault();
 
-				// TODO Deleting two rows (two row problemTextfield)
+			if(getTypingTextfield().innerHTML !== "") {
+				if(getTypingTextfield().innerHTML === currentWordOfString) {
+						_rightWords.push(currentWordOfString);
+						_rightKeystrokes += currentWordOfString.length;
+						
+						_wordsAllArray[_rightWords.length + _wrongWords.length - 1] = '<span class="highlightRight">' + currentWordOfString + '</span>';
+						displayProblem();
+					} 
+					else if(getTypingTextfield().innerHTML !== currentWordOfString) {
+						_wrongWords.push(currentWordOfString);
+						_wrongKeystrokes += currentWordOfString.length;
+						
+						_wordsAllArray[_rightWords.length + _wrongWords.length - 1] = '<span class="highlightWrong">' + currentWordOfString + '</span>';
+						displayProblem();
+					}
 			}
+
+			getTypingTextfield().innerHTML = "";
+		}
 		});
 
 	/*
@@ -242,6 +227,8 @@
   		clearTimeout(_t);
   		getTimerTextfield().innerHTML = "";
   		getTypingTextfield().placeholder="Start typing to begin a challenge.";
+  		
+  		// No CSS used :/
   		getTimerTextfield().style.textAlign = "center";
   		getTypingTextfield().style.textAlign = "center";
   		getTimerTextfield().style.height = "30px";
@@ -251,10 +238,8 @@
   		_wrongWords = [];
   		_rightKeystrokes = 0;
   		_wrongKeystrokes = 0;
-  		_spaceCount = 0;
 
   		cleanUpFrontend();
   		generateProblem();
   		displayProblem();
-
   }
